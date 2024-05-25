@@ -32,3 +32,6 @@ export default {
 ## To run the project
 1. `npm install`
 2. `npm run dev` and play with the local dev environment.
+
+## To run the project
+Note: Currently you cannot chat with this applicatition due to restriction of using any of the backend services.
