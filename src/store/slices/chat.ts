@@ -36,13 +36,18 @@ export const chatSlice = createSlice({
       state.chats.push(action.payload);
       state.currentChat = action.payload;
     },
-    sendMessage(state, action: PayloadAction<{ chatId: string, message: Message }>) {
-      const chat = state.chats.find(chat => chat.id === action.payload.chatId);
-      chat?.messages.push(action.payload.message);
-      state.currentChat?.messages.push(action.payload.message);
+    sendMessage(state, action: PayloadAction<Message>) {
+      const chat = state.chats.find(chat => chat.id === state.currentChat?.id)!;
+      chat.messages.push(action.payload);
+      state.currentChat!.messages.push(action.payload);
     },
     startChat(state, action: PayloadAction<string>) {
       state.currentChat = state.chats.find(chat => chat.id === action.payload) ?? null;
+    },
+    clearChatHistory(state) {
+      const chat = state.chats.find(chat => chat.id === state.currentChat?.id)!;
+      chat.messages = [];
+      state.currentChat!.messages = [];
     }
   },
 })

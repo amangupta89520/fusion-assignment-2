@@ -11,8 +11,7 @@ const SendMessage = () => {
   const formRef = useRef<null | HTMLFormElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const currentChat = useSelector((state: RootState) => state.chat.currentChat)!;
+  
   const currentUser = useSelector((state: RootState) => state.user.users[0]);
 
   const handleSubmit = (e: FormEvent) => {
@@ -24,10 +23,7 @@ const SendMessage = () => {
         sent_by: currentUser.id,
         arrival_time: Date.now()
       }
-      dispatch(chatActions.sendMessage({
-        chatId: currentChat.id,
-        message
-      }));
+      dispatch(chatActions.sendMessage(message));
     }
     formRef.current?.reset();
   }
@@ -36,7 +32,7 @@ const SendMessage = () => {
     <div className={cn("mt-auto border-t p-4")}>
       <form ref={formRef} onSubmit={handleSubmit} className={cn("flex items-center space-x-4")}>
         <Input placeholder="Enter your message..." className={cn('w-full')} type="text" name="messageInpt" />
-        <RocketIcon type="submit" className={cn('cursor-pointer bg-gray-100 size-6')} />
+        <button><RocketIcon type="submit" className={cn('cursor-pointer bg-gray-100 size-6')} /></button>
       </form>
     </div>
   );
